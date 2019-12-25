@@ -12,6 +12,8 @@ matrix:
       env: GO111MODULE=off
     - go: 1.11.x
       os: osx
+before_install:
+  - go get github.com/mattn/goveralls
 install:
   - go mod download
 script:
@@ -19,3 +21,4 @@ script:
   - export GORACE=halt_on_error=1
   - go test -race -v ./...
   - go test -bench . ./...
+  - $GOPATH/bin/goveralls -service=travis-ci
